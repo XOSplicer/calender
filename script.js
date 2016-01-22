@@ -93,14 +93,36 @@ function onClickList() {
             return;
         }
         clearView();
-        var view = document.getElementById("listView");
-        view.innerHTML="List<br>";
-        view.style.display="block";
-        for(var i=0; i < response.events.events.length; i++) {
-            var eventItemElement = document.createElement("div");
-                eventItemElement.innerHTML = response.events.events[i].title+" "+response.events.events[i].status;  
-                eventItemElement.className = "eventListItem";
-            view.appendChild(eventItemElement);    
+        document.getElementById("listView").style.display="block";
+        var table = document.getElementById("listTable");
+        var events = response.events.events;
+        for(var i=0; i < events.length; i++) {
+            var row = document.createElement("tr");
+            var tdTitle = document.createElement("td");
+                tdTitle.textContent = events[i].title;
+                row.appendChild(tdTitle);
+            var tdStart = document.createElement("td");
+                tdStart.textContent = events[i].start;
+                row.appendChild(tdStart);
+            var tdEnd = document.createElement("td");
+                tdEnd.textContent = events[i].end;
+                row.appendChild(tdEnd);
+            var tdStatus = document.createElement("td");
+                tdStatus.textContent = events[i].status;
+                row.appendChild(tdStatus);
+            var tdAllday = document.createElement("td");
+                tdAllday.textContent = events[i].allday;
+                row.appendChild(tdAllday);
+            var tdOrganizer = document.createElement("td");
+                tdOrganizer.textContent = events[i].organizer;
+                row.appendChild(tdOrganizer);
+            var tdWebpage = document.createElement("td");
+                tdWebpage.textContent = events[i].webpage;
+                row.appendChild(tdWebpage);
+            var tdLocation = document.createElement("td");
+                tdLocation.textContent = events[i].location;
+                row.appendChild(tdLocation);
+            table.appendChild(row);    
         }
     },loadingError, null);
 }
@@ -120,7 +142,7 @@ function onClickAddCategory(e) {
 
 //Script
 
-clearView();
+//clearView();
 
 //Add Event Handler
 document.getElementById("monthNavListItem").addEventListener("click",onClickMonth);
