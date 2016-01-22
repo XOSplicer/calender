@@ -56,10 +56,10 @@ body {
 }
 
 #sideNavList li {
-    
+    margin-bottom: 10px;
 }
 
-.eventListItem {
+#listTable {
     
 }
 

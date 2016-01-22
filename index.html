@@ -32,18 +32,26 @@
             </div>
             <div id="listView" class="view">
                 <table id="listTable">
-                    <tr><th>Title</th><th>Start</th><th>End</th><th>Status</th><th>Allday</th><th>Organizer</th><th>Webpage</th><th>Location</th></tr>
                 </table>
             </div>
             <div id="diaryView" class="view">Diary
             </div>
             <div id="addEventView" class="view">Add Event
                 <form id="addEventForm">
-                    Title: <input type="text"><br>
-                    Location: <input type="text"><br>
-                    Start: <input type="datetime-local"><br>
-                    End: <input type="datetime-local"><br>
-                    
+                    Title: <input type="text" name="title" maxlength="50"><br>
+                    Start: <input type="datetime-local" name="start"><br>
+                    End: <input type="datetime-local" name="end"><br>
+                    <input type="checkbox" name="allday"> Allday <br>
+                    Status: <select name="status">
+                            <option value="Free">Free</option>
+                            <option value="Busy">Busy</option>
+                            <option value="Tentative">Tentative</option>
+                            </select><br>
+                    Organizer <input type="email" name="organizer" maxlength="50"><br>
+                    Webpage <input type="url" name="webpage" maxlength="100"><br>
+                    Location: <input type="text" name="location" maxlength="50"><br>
+                    <input type="button" name="Add" id="addEventFormSubmitButton" value="Submit">
+                    <input type="reset" name="Reset" value="Reset">
                 </form>
             </div>
             <div id="addCategoryView" class="view">Add Category

@@ -95,6 +95,7 @@ function onClickList() {
         clearView();
         document.getElementById("listView").style.display="block";
         var table = document.getElementById("listTable");
+            table.innerHTML="<tr><th>Title</th><th>Start</th><th>End</th><th>Status</th><th>Allday</th><th>Organizer</th><th>Webpage</th><th>Location</th></tr>";
         var events = response.events.events;
         for(var i=0; i < events.length; i++) {
             var row = document.createElement("tr");
@@ -122,6 +123,15 @@ function onClickList() {
             var tdLocation = document.createElement("td");
                 tdLocation.textContent = events[i].location;
                 row.appendChild(tdLocation);
+            var tdDelete = document.createElement("td");
+                tdDelete.textContent = "Delete";
+                row.appendChild(tdDelete);
+            var tdEdit = document.createElement("td");
+                tdEdit.textContent = "Edit";
+                row.appendChild(tdEdit);
+            var tdDetails = document.createElement("td");
+                tdDetails.textContent = "Details";
+                row.appendChild(tdDetails);
             table.appendChild(row);    
         }
     },loadingError, null);
@@ -142,7 +152,8 @@ function onClickAddCategory(e) {
 
 //Script
 
-//clearView();
+clearView();
+onClickList();
 
 //Add Event Handler
 document.getElementById("monthNavListItem").addEventListener("click",onClickMonth);
