@@ -1,0 +1,70 @@
+body {
+    background-color: #FFFFFF;
+    font-family: Arial, sans-serif;
+}
+
+.nav {
+    background-color: #FF8D10;
+}
+
+#cornerNav {
+    background-color: #B3610B;
+    position: absolute;
+    top: 0px; left: 0px;
+    height: 50px; width: 150px;
+    color: #FFFFFF;
+    font-size: 30px;
+    font-variant: small-caps;
+    text-align: center;
+    line-height: 50px;
+}
+
+#topNav {
+    position: absolute;
+    top: 0px; left: 150px;
+    height: 50px; width: 100%;
+}
+
+#sideNav {
+    position: absolute;
+    top: 50px; left: 0px;
+    height: 100%; width: 50px;
+}
+
+.navlist {
+    padding-left: 10px;
+    color: #FFFFFF;
+}
+
+.navListItem {
+    list-style-position: inside;
+    list-style-type: none;
+    cursor: pointer;
+}
+
+#topNavList {
+    margin-left: 20px;
+}
+
+#topNavList li {
+    display: inline;
+    margin: 10px;
+}
+
+#sideNavList {
+    margin-top: 30px;
+}
+
+#sideNavList li {
+    
+}
+
+.eventListItem {
+    
+}
+
+#main {
+    padding: 10px;
+    position: absolute;
+    top: 50px; left: 50px;
+}

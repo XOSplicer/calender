@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Calender</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <div id="cornerNav" class="nav">
+            Calender
+        </div>
+        <div id="topNav" class="nav">
+            <ul id="topNavList" class="navList">
+                <li id="monthNavListItem" class="navListItem">Month</li>
+                <li id="weekNavListItem" class="navListItem">Week</li>
+                <li id="dayNavListItem" class="navListItem">Day</li>
+                <li id="listNavListItem" class="navListItem">List</li>
+                <li id="diaryNavListItem" class="navListItem">Diary</li>
+            </ul>
+        </div>
+        <div id="sideNav" class="nav">
+            <ul id="sideNavList" class="navList">
+                <li id="addEventNavListItem" class="navListItem">Add Event</li>
+                <li id="addCategoryNavListItem" class="navListItem">Add Category</li>
+            </ul>
+        </div>
+        
+        <div id="main">
+            <div id="monthView" class="view">Month
+            </div>
+            <div id="weekView" class="view">Week
+            </div>
+            <div id="dayView" class="view">Day
+            </div>
+            <div id="listView" class="view">List
+            </div>
+            <div id="diaryView" class="view">Diary
+            </div>
+            <div id="addEventView" class="view">Add Event
+                <form id="addEventForm">
+                    Title: <input type="text"><br>
+                    Location: <input type="text"><br>
+                    Start: <input type="datetime-local"><br>
+                    End: <input type="datetime-local"><br>
+                    
+                </form>
+            </div>
+            <div id="addCategoryView" class="view">Add Category
+            </div>
+            <div id="editEventView" class="view">Edit Event
+            </div>
+            <div id="editCategoryView" class="view">Edit Category
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="script.js"></script>
+    </body>
+</html>
