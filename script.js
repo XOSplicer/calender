@@ -1,8 +1,8 @@
 //Constants
 
 var C_URL = "http://host.bisswanger.com/dhbw/calendar.php";
-//var C_USER = "6079153";
-var C_USER = "ramon";
+var C_USER = "6079153";
+//var C_USER = "ramon";
 var C_FORMAT_XML = "xml";
 var C_FORMAT_JSON = "json";
 var C_ACTION_LIST_EVENTS = "list";
@@ -52,11 +52,18 @@ function actionAddEvent(formData, callbackSuccess, callbackError, callbackProgre
         request.addEventListener("error", callbackError, false);
         request.addEventListener("abort", callbackError, false);
         request.addEventListener("progress", callbackProgress, false);
+        formData.append("user",C_USER);
+        formData.append("action", C_ACTION_ADD_EVENT);
+        formData.append("format", C_FORMAT_JSON);
     request.send(formData);    
 }
 
 function loadingError() {
     alert("Error while loading data! Come back later.");
+}
+
+function sendingError() {
+    alert("Error while sending data! Come back later.");
 }
 
 function serviceError() {
@@ -91,50 +98,51 @@ function onClickList() {
         if("error" in response){
             serviceError();
             return;
+        } else {
+            clearView();
+            document.getElementById("listView").style.display="block";
+            var table = document.getElementById("listTable");
+                table.innerHTML="<tr><th>Title</th><th>Start</th><th>End</th><th>Status</th><th>Allday</th><th>Organizer</th><th>Webpage</th><th>Location</th></tr>";
+            var events = response.events.events;
+            for(var i=0; i < events.length; i++) {
+                var row = document.createElement("tr");
+                var tdTitle = document.createElement("td");
+                    tdTitle.textContent = events[i].title;
+                    row.appendChild(tdTitle);
+                var tdStart = document.createElement("td");
+                    tdStart.textContent = events[i].start;
+                    row.appendChild(tdStart);
+                var tdEnd = document.createElement("td");
+                    tdEnd.textContent = events[i].end;
+                    row.appendChild(tdEnd);
+                var tdStatus = document.createElement("td");
+                    tdStatus.textContent = events[i].status;
+                    row.appendChild(tdStatus);
+                var tdAllday = document.createElement("td");
+                    tdAllday.textContent = events[i].allday;
+                    row.appendChild(tdAllday);
+                var tdOrganizer = document.createElement("td");
+                    tdOrganizer.textContent = events[i].organizer;
+                    row.appendChild(tdOrganizer);
+                var tdWebpage = document.createElement("td");
+                    tdWebpage.textContent = events[i].webpage;
+                    row.appendChild(tdWebpage);
+                var tdLocation = document.createElement("td");
+                    tdLocation.textContent = events[i].location;
+                    row.appendChild(tdLocation);
+                var tdDelete = document.createElement("td");
+                    tdDelete.textContent = "Delete";
+                    row.appendChild(tdDelete);
+                var tdEdit = document.createElement("td");
+                    tdEdit.textContent = "Edit";
+                    row.appendChild(tdEdit);
+                var tdDetails = document.createElement("td");
+                    tdDetails.textContent = "Details";
+                    row.appendChild(tdDetails);
+                table.appendChild(row);    
+            }
         }
-        clearView();
-        document.getElementById("listView").style.display="block";
-        var table = document.getElementById("listTable");
-            table.innerHTML="<tr><th>Title</th><th>Start</th><th>End</th><th>Status</th><th>Allday</th><th>Organizer</th><th>Webpage</th><th>Location</th></tr>";
-        var events = response.events.events;
-        for(var i=0; i < events.length; i++) {
-            var row = document.createElement("tr");
-            var tdTitle = document.createElement("td");
-                tdTitle.textContent = events[i].title;
-                row.appendChild(tdTitle);
-            var tdStart = document.createElement("td");
-                tdStart.textContent = events[i].start;
-                row.appendChild(tdStart);
-            var tdEnd = document.createElement("td");
-                tdEnd.textContent = events[i].end;
-                row.appendChild(tdEnd);
-            var tdStatus = document.createElement("td");
-                tdStatus.textContent = events[i].status;
-                row.appendChild(tdStatus);
-            var tdAllday = document.createElement("td");
-                tdAllday.textContent = events[i].allday;
-                row.appendChild(tdAllday);
-            var tdOrganizer = document.createElement("td");
-                tdOrganizer.textContent = events[i].organizer;
-                row.appendChild(tdOrganizer);
-            var tdWebpage = document.createElement("td");
-                tdWebpage.textContent = events[i].webpage;
-                row.appendChild(tdWebpage);
-            var tdLocation = document.createElement("td");
-                tdLocation.textContent = events[i].location;
-                row.appendChild(tdLocation);
-            var tdDelete = document.createElement("td");
-                tdDelete.textContent = "Delete";
-                row.appendChild(tdDelete);
-            var tdEdit = document.createElement("td");
-                tdEdit.textContent = "Edit";
-                row.appendChild(tdEdit);
-            var tdDetails = document.createElement("td");
-                tdDetails.textContent = "Details";
-                row.appendChild(tdDetails);
-            table.appendChild(row);    
-        }
-    },loadingError, null);
+    }, loadingError, null);
 }
 
 function onClickDiary(e) {
@@ -150,6 +158,23 @@ function onClickAddCategory(e) {
     
 }
 
+function onSubmitAddEvent(e) {
+    e.preventDefault();
+    var formData = new FormData(e.srcElement);
+    actionAddEvent(formData, function(e) {
+        var response = JSON.parse(e.srcElement.responseText); 
+        if("error" in response){
+            serviceError();
+            return;
+        }
+        else {
+            alert("Event added successfully");
+            clearView();
+            onClickList();
+        }
+    }, sendingError, null);
+}
+
 //Script
 
 clearView();
@@ -163,3 +188,4 @@ document.getElementById("listNavListItem").addEventListener("click",onClickList)
 document.getElementById("diaryNavListItem").addEventListener("click",onClickDiary);
 document.getElementById("addEventNavListItem").addEventListener("click",onClickAddEvent);
 document.getElementById("addCategoryNavListItem").addEventListener("click", onClickAddCategory);
+document.getElementById("addEventForm").addEventListener("submit", onSubmitAddEvent);
