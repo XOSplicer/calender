@@ -153,6 +153,7 @@ function onClickDiary(e) {
 function onClickAddEvent(e) {
     clearView();
     document.getElementById("addEventView").style.display="block";
+    document.getElementById("addEventForm").reset();
 }
 
 function onClickAddCategory(e) {

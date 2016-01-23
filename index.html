@@ -1,5 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calender</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
@@ -21,8 +24,7 @@
                 <li id="addEventNavListItem" class="navListItem">Add Event</li>
                 <li id="addCategoryNavListItem" class="navListItem">Add Category</li>
             </ul>
-        </div>
-        
+        </div>     
         <div id="main">
             <div id="monthView" class="view">Month
             </div>
@@ -40,20 +42,66 @@
             <div id="addEventView" class="view">
                 <h1>Add Event</h1>
                 <form id="addEventForm">
-                    Title: <input type="text" name="title" maxlength="50" required><br>
-                    Start: <input type="date" name="startDate" required><input type="time" name="startTime" id="aefStartTime" required><br>
-                    End: <input type="date" name="endDate" required><input type="time" name="endTime" id="aefEndTime" required><br>
-                    <input type="checkbox" name="allday" value="1" id="aefAllday"><label for="aefAllday">Allday</label><br>
-                    Status: <select name="status" required>
-                            <option value="Free">Free</option>
-                            <option value="Busy">Busy</option>
-                            <option value="Tentative">Tentative</option>
-                            </select><br>
-                    Organizer <input type="email" name="organizer" maxlength="50" required><br>
-                    Webpage <input type="url" name="webpage" maxlength="100"><br>
-                    Location: <input type="text" name="location" maxlength="50"><br>
-                    <input type="submit" name="Add" value="Submit">
-                    <input type="reset" name="Reset" value="Reset">
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td>
+                                <input type="text" name="title" maxlength="50" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Start</td>
+                            <td>
+                                <input type="date" name="startDate" required><input type="time" name="startTime" id="aefStartTime" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>End</td>
+                            <td>
+                                <input type="date" name="endDate" required><input type="time" name="endTime" id="aefEndTime" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aefAllday">Allday</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="allday" id="aefAllday" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select name="status" size="1">
+                                    <option value="Free">Free</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Tentative">Tentative</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organizer</td>
+                            <td>
+                                <input type="email" name="organizer" maxlength="50" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Webpage</td>
+                            <td>
+                                <input type="url" name="webpage" maxlength="100">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>
+                                <input type="text" name="location" maxlength="50">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" name="Add" value="Submit"></td>
+                            <td><input type="reset" name="Reset" value="Reset"></td>
+                        </tr>
+                    </table>            
                 </form>
             </div>
             <div id="addCategoryView" class="view">Add Category
@@ -62,8 +110,7 @@
             </div>
             <div id="editCategoryView" class="view">Edit Category
             </div>
-        </div>
-        
+        </div>     
         <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
