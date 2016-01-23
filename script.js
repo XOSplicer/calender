@@ -97,6 +97,7 @@ function onClickList() {
         var response = JSON.parse(e.srcElement.responseText); 
         if("error" in response){
             serviceError();
+            console.log(e.srcElement.responseText);
             return;
         } else {
             clearView();
@@ -161,10 +162,13 @@ function onClickAddCategory(e) {
 function onSubmitAddEvent(e) {
     e.preventDefault();
     var formData = new FormData(e.srcElement);
+    formData.append("start", e.srcElement.elements["startDate"].value+"T"+e.srcElement.elements["startTime"].value);
+    formData.append("end", e.srcElement.elements["endDate"].value+"T"+e.srcElement.elements["endTime"].value);
     actionAddEvent(formData, function(e) {
         var response = JSON.parse(e.srcElement.responseText); 
         if("error" in response){
             serviceError();
+            console.log(e.srcElement.responseText);
             return;
         }
         else {
@@ -173,6 +177,19 @@ function onSubmitAddEvent(e) {
             onClickList();
         }
     }, sendingError, null);
+}
+
+function onClickAllday(e) {
+    if(e.srcElement.checked) {
+        document.getElementById("aefStartTime").value = "00:00";
+        document.getElementById("aefStartTime").readOnly=true;
+        document.getElementById("aefEndTime").value = "23:59";
+        document.getElementById("aefEndTime").readOnly=true;
+    }
+    else {
+        document.getElementById("aefStartTime").readOnly=false;
+        document.getElementById("aefEndTime").readOnly=false;
+    }
 }
 
 //Script
@@ -189,3 +206,4 @@ document.getElementById("diaryNavListItem").addEventListener("click",onClickDiar
 document.getElementById("addEventNavListItem").addEventListener("click",onClickAddEvent);
 document.getElementById("addCategoryNavListItem").addEventListener("click", onClickAddCategory);
 document.getElementById("addEventForm").addEventListener("submit", onSubmitAddEvent);
+document.getElementById("aefAllday").addEventListener("click", onClickAllday);

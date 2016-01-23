@@ -34,14 +34,16 @@
                 <table id="listTable">
                 </table>
             </div>
-            <div id="diaryView" class="view">Diary
+            <div id="diaryView" class="view">
+                <h1>Diary</h1>
             </div>
-            <div id="addEventView" class="view">Add Event
+            <div id="addEventView" class="view">
+                <h1>Add Event</h1>
                 <form id="addEventForm">
                     Title: <input type="text" name="title" maxlength="50" required><br>
-                    Start: <input type="datetime-local" name="start" required><br>
-                    End: <input type="datetime-local" name="end" required><br>
-                    <input type="checkbox" name="allday" > Allday <br>
+                    Start: <input type="date" name="startDate" required><input type="time" name="startTime" id="aefStartTime" required><br>
+                    End: <input type="date" name="endDate" required><input type="time" name="endTime" id="aefEndTime" required><br>
+                    <input type="checkbox" name="allday" value="1" id="aefAllday"><label for="aefAllday">Allday</label><br>
                     Status: <select name="status" required>
                             <option value="Free">Free</option>
                             <option value="Busy">Busy</option>
