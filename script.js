@@ -2,7 +2,6 @@
 
 var C_URL = "http://host.bisswanger.com/dhbw/calendar.php";
 var C_USER = "6079153";
-//var C_USER = "ramon";
 var C_FORMAT_XML = "xml";
 var C_FORMAT_JSON = "json";
 var C_ACTION_LIST_EVENTS = "list";
@@ -17,7 +16,7 @@ var C_ACTION_LIST_CATEGORIES = "list-categories";
 var C_ACTION_LIST_CATEGORIES = "GET";
 var C_ACTION_DELETE_CATEGORY = "delete-category";
 var C_ACTION_DELETE_CATEGORY_METHOD = "GET";
-var C_ACTION_ADD_CATEGORY = "add-categorie";
+var C_ACTION_ADD_CATEGORY = "add-category";
 var C_ACTION_ADD_CATEGORY_METHOD = "POST";
 var C_ACTION_UPLOAD_IMAGE = "upload-image";
 var C_ACTION_UPLOAD_IMAGE_METHOD = "POST";
@@ -56,6 +55,19 @@ function actionAddEvent(formData, callbackSuccess, callbackError, callbackProgre
         formData.append("action", C_ACTION_ADD_EVENT);
         formData.append("format", C_FORMAT_JSON);
     request.send(formData);    
+}
+
+function actionAddCategory(formData, callbackSuccess, callbackError, callbackProgress) {
+    var request = new XMLHttpRequest();
+        request.open(C_ACTION_ADD_CATEGORY_METHOD, C_URL, true);
+        request.addEventListener("load", callbackSuccess, false);
+        request.addEventListener("error", callbackError, false);
+        request.addEventListener("abort", callbackError, false);
+        request.addEventListener("progress", callbackProgress, false);
+        formData.append("user",C_USER);
+        formData.append("action", C_ACTION_ADD_CATEGORY);
+        formData.append("format", C_FORMAT_JSON);
+    request.send(formData);
 }
 
 function loadingError() {
@@ -157,7 +169,9 @@ function onClickAddEvent(e) {
 }
 
 function onClickAddCategory(e) {
-    
+    clearView();
+    document.getElementById("addCategoryView").style.display="block";
+    document.getElementById("addCategoryForm").reset();
 }
 
 function onSubmitAddEvent(e) {
@@ -193,6 +207,24 @@ function onClickAllday(e) {
     }
 }
 
+function onSubmitAddCategory(e) {
+    e.preventDefault();
+    var formData = new FormData(e.srcElement);
+    actionAddCategory(formData, function(e) {
+        var response = JSON.parse(e.srcElement.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.srcElement.responseText);
+            return;
+        }
+        else {
+            alert("Category added successfully");
+            clearView();
+            onClickList();
+        }
+    }, sendingError, null)
+}
+
 //Script
 
 clearView();
@@ -208,3 +240,4 @@ document.getElementById("addEventNavListItem").addEventListener("click",onClickA
 document.getElementById("addCategoryNavListItem").addEventListener("click", onClickAddCategory);
 document.getElementById("addEventForm").addEventListener("submit", onSubmitAddEvent);
 document.getElementById("aefAllday").addEventListener("click", onClickAllday);
+document.getElementById("addCategoryForm").addEventListener("submit", onSubmitAddCategory);

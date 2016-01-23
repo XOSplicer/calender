@@ -21,8 +21,8 @@
         </div>
         <div id="sideNav" class="nav">
             <ul id="sideNavList" class="navList">
-                <li id="addEventNavListItem" class="navListItem">Add Event</li>
-                <li id="addCategoryNavListItem" class="navListItem">Add Category</li>
+                <li id="addEventNavListItem" class="navListItem">New Event</li>
+                <li id="addCategoryNavListItem" class="navListItem">New Category</li>
             </ul>
         </div>     
         <div id="main">
@@ -33,6 +33,7 @@
             <div id="dayView" class="view">Day
             </div>
             <div id="listView" class="view">
+                <h1>List of Events</h1>
                 <table id="listTable">
                 </table>
             </div>
@@ -40,7 +41,7 @@
                 <h1>Diary</h1>
             </div>
             <div id="addEventView" class="view">
-                <h1>Add Event</h1>
+                <h1>New Event</h1>
                 <form id="addEventForm">
                     <table>
                         <tr>
@@ -98,13 +99,30 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="submit" name="Add" value="Submit"></td>
-                            <td><input type="reset" name="Reset" value="Reset"></td>
+                            <td></td>
+                            <td><input type="submit" name="Add" value="Submit">
+                            <input type="reset" name="Reset" value="Reset"></td>
                         </tr>
                     </table>            
                 </form>
             </div>
-            <div id="addCategoryView" class="view">Add Category
+            <div id="addCategoryView" class="view">
+                <h1>New Category</h1>
+                <form id="addCategoryForm">
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <input type="text" name="name" maxlength="30" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" name="Add" value="Submit">
+                            <input type="reset" name="Reset" value="Reset"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <div id="editEventView" class="view">Edit Event
             </div>
