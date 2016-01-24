@@ -75,6 +75,31 @@ function actionListCategries(callbackSuccess, callbackError, callbackProgress) {
     request.send(null);
 }
 
+function actionDeleteCategory(id, callbackSuccess, callbackError, callbackProgress) {
+    var request = new XMLHttpRequest();
+        request.open(C_ACTION_DELETE_CATEGORY_METHOD, C_URL+"?user="+C_USER+"&format="+C_FORMAT_JSON+"&action="+C_ACTION_DELETE_CATEGORY+"&id="+id, true);
+        request.addEventListener("load", callbackSuccess, false);
+        request.addEventListener("error", callbackError, false);
+        request.addEventListener("abort", callbackError, false);
+        request.addEventListener("progress", callbackProgress, false);
+    request.send(null);
+}
+
+function deleteCategory(id) {
+    actionDeleteCategory(id, function(e) {
+        var response = JSON.parse(e.target.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.target.responseText);
+            return;
+        } else {
+            alert("Category deleted successfully.");
+            clearView();
+            onClickAddCategory();
+        }
+    }, sendingError, null);
+}
+
 function loadingError() {
     alert("Error while loading data! Come back later.");
 }
@@ -181,11 +206,8 @@ function onClickAddEvent(e) {
         form.elements["endTime"].value = end.toJSON().substring(11,16);
 }
 
-function onClickAddCategory(e) {
-    clearView();
-    document.getElementById("addCategoryView").style.display="block";
-    document.getElementById("addCategoryForm").reset();
-    actionListCategries(function(e){
+function listCategories() {
+        actionListCategries(function(e){
         var response = JSON.parse(e.target.responseText); 
         if("error" in response){
             serviceError();
@@ -197,11 +219,30 @@ function onClickAddCategory(e) {
             var categories = response.categories.categories;
             for(var i=0; i<categories.length; i++){
                 var item = document.createElement("li");
-                item.textContent = categories[i].name;
+                    item.textContent = categories[i].name;
+                var span = document.createElement("span");
+                    span.className = "deleteCategory";
+                    span.textContent = " (delete)";
+                var hiddenId = document.createElement("span");
+                    hiddenId.textContent = categories[i].id;
+                    hiddenId.style.display = "none";
+                    hiddenId.className = "hiddenId";
+                    span.appendChild(hiddenId);
+                    span.addEventListener("click", function(e){
+                        deleteCategory(e.target.getElementsByClassName("hiddenId")[0].textContent);
+                    });
+                item.appendChild(span);
                 list.appendChild(item);
             }
         }
     },loadingError, null);
+}
+
+function onClickAddCategory(e) {
+    clearView();
+    document.getElementById("addCategoryView").style.display="block";
+    document.getElementById("addCategoryForm").reset();
+    listCategories();
 }
 
 function onSubmitAddEvent(e) {
@@ -217,7 +258,7 @@ function onSubmitAddEvent(e) {
             return;
         }
         else {
-            alert("Event added successfully");
+            alert("Event added successfully.");
             clearView();
             onClickList();
         }
@@ -248,7 +289,7 @@ function onSubmitAddCategory(e) {
             return;
         }
         else {
-            alert("Category added successfully");
+            alert("Category added successfully.");
             clearView();
             onClickAddCategory();
         }
