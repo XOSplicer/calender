@@ -13,7 +13,7 @@ var C_ACTION_ADD_EVENT_METHOD = "POST";
 var C_ACTION_UPDATE_EVENT = "update";
 var C_ACTION_UPDATE_EVENT_METHOD = "POST";
 var C_ACTION_LIST_CATEGORIES = "list-categories";
-var C_ACTION_LIST_CATEGORIES = "GET";
+var C_ACTION_LIST_CATEGORIES_METHOD = "GET";
 var C_ACTION_DELETE_CATEGORY = "delete-category";
 var C_ACTION_DELETE_CATEGORY_METHOD = "GET";
 var C_ACTION_ADD_CATEGORY = "add-category";
@@ -36,11 +36,6 @@ function actionListEvents(callbackSuccess, callbackError, callbackProgress) {
         request.addEventListener("error", callbackError, false);
         request.addEventListener("abort", callbackError, false);
         request.addEventListener("progress", callbackProgress, false);
-/*    var formData = new FormData();
-        formData.append("user",C_USER);
-        formData.append("action", C_ACTION_LIST_EVENTS);
-        formData.append("format", C_FORMAT_JSON);
-    request.send(formData); */
     request.send(null);
 }
 
@@ -68,6 +63,16 @@ function actionAddCategory(formData, callbackSuccess, callbackError, callbackPro
         formData.append("action", C_ACTION_ADD_CATEGORY);
         formData.append("format", C_FORMAT_JSON);
     request.send(formData);
+}
+
+function actionListCategries(callbackSuccess, callbackError, callbackProgress) {
+    var request = new XMLHttpRequest();
+        request.open(C_ACTION_LIST_CATEGORIES_METHOD, C_URL+"?user="+C_USER+"&format="+C_FORMAT_JSON+"&action="+C_ACTION_LIST_CATEGORIES, true);
+        request.addEventListener("load", callbackSuccess, false);
+        request.addEventListener("error", callbackError, false);
+        request.addEventListener("abort", callbackError, false);
+        request.addEventListener("progress", callbackProgress, false);
+    request.send(null);
 }
 
 function loadingError() {
@@ -106,10 +111,10 @@ function onClickDay() {
 
 function onClickList() {
     actionListEvents(function(e){
-        var response = JSON.parse(e.srcElement.responseText); 
+        var response = JSON.parse(e.target.responseText); 
         if("error" in response){
             serviceError();
-            console.log(e.srcElement.responseText);
+            console.log(e.target.responseText);
             return;
         } else {
             clearView();
@@ -165,25 +170,50 @@ function onClickDiary(e) {
 function onClickAddEvent(e) {
     clearView();
     document.getElementById("addEventView").style.display="block";
-    document.getElementById("addEventForm").reset();
+    var form = document.getElementById("addEventForm");
+        form.reset();
+    var start   = new Date();
+    var end     = new Date(start);
+        end.setHours(start.getHours()+1);
+        form.elements["startDate"].value = start.toJSON().substring(0,10);
+        form.elements["startTime"].value = start.toJSON().substring(11,16);
+        form.elements["endDate"].value = end.toJSON().substring(0,10);
+        form.elements["endTime"].value = end.toJSON().substring(11,16);
 }
 
 function onClickAddCategory(e) {
     clearView();
     document.getElementById("addCategoryView").style.display="block";
     document.getElementById("addCategoryForm").reset();
+    actionListCategries(function(e){
+        var response = JSON.parse(e.target.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.target.responseText);
+            return;
+        } else {
+            var list = document.getElementById("categoryList");
+                list.innerHTML = "";
+            var categories = response.categories.categories;
+            for(var i=0; i<categories.length; i++){
+                var item = document.createElement("li");
+                item.textContent = categories[i].name;
+                list.appendChild(item);
+            }
+        }
+    },loadingError, null);
 }
 
 function onSubmitAddEvent(e) {
     e.preventDefault();
-    var formData = new FormData(e.srcElement);
-    formData.append("start", e.srcElement.elements["startDate"].value+"T"+e.srcElement.elements["startTime"].value);
-    formData.append("end", e.srcElement.elements["endDate"].value+"T"+e.srcElement.elements["endTime"].value);
+    var formData = new FormData(e.target);
+    formData.append("start", e.target.elements["startDate"].value+"T"+e.target.elements["startTime"].value);
+    formData.append("end", e.target.elements["endDate"].value+"T"+e.target.elements["endTime"].value);
     actionAddEvent(formData, function(e) {
-        var response = JSON.parse(e.srcElement.responseText); 
+        var response = JSON.parse(e.target.responseText); 
         if("error" in response){
             serviceError();
-            console.log(e.srcElement.responseText);
+            console.log(e.target.responseText);
             return;
         }
         else {
@@ -195,7 +225,7 @@ function onSubmitAddEvent(e) {
 }
 
 function onClickAllday(e) {
-    if(e.srcElement.checked) {
+    if(e.target.checked) {
         document.getElementById("aefStartTime").value = "00:00";
         document.getElementById("aefStartTime").readOnly=true;
         document.getElementById("aefEndTime").value = "23:59";
@@ -209,18 +239,18 @@ function onClickAllday(e) {
 
 function onSubmitAddCategory(e) {
     e.preventDefault();
-    var formData = new FormData(e.srcElement);
+    var formData = new FormData(e.target);
     actionAddCategory(formData, function(e) {
-        var response = JSON.parse(e.srcElement.responseText); 
+        var response = JSON.parse(e.target.responseText); 
         if("error" in response){
             serviceError();
-            console.log(e.srcElement.responseText);
+            console.log(e.target.responseText);
             return;
         }
         else {
             alert("Category added successfully");
             clearView();
-            onClickList();
+            onClickAddCategory();
         }
     }, sendingError, null)
 }

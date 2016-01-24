@@ -22,7 +22,7 @@
         <div id="sideNav" class="nav">
             <ul id="sideNavList" class="navList">
                 <li id="addEventNavListItem" class="navListItem">New Event</li>
-                <li id="addCategoryNavListItem" class="navListItem">New Category</li>
+                <li id="addCategoryNavListItem" class="navListItem">Manage Categories</li>
             </ul>
         </div>     
         <div id="main">
@@ -47,19 +47,19 @@
                         <tr>
                             <td>Title</td>
                             <td>
-                                <input type="text" name="title" maxlength="50" required>
+                                <input type="text" name="title" maxlength="50" required="required" placeholder="Event Title">
                             </td>
                         </tr>
                         <tr>
                             <td>Start</td>
                             <td>
-                                <input type="date" name="startDate" required><input type="time" name="startTime" id="aefStartTime" required>
+                                <input type="date" name="startDate" required><input type="time" name="startTime" id="aefStartTime" required="required">
                             </td>
                         </tr>
                         <tr>
                             <td>End</td>
                             <td>
-                                <input type="date" name="endDate" required><input type="time" name="endTime" id="aefEndTime" required>
+                                <input type="date" name="endDate" required><input type="time" name="endTime" id="aefEndTime" required="required">
                             </td>
                         </tr>
                         <tr>
@@ -83,19 +83,19 @@
                         <tr>
                             <td>Organizer</td>
                             <td>
-                                <input type="email" name="organizer" maxlength="50" required>
+                                <input type="email" name="organizer" maxlength="50" required="required" placeholder="info@example.com">
                             </td>
                         </tr>
                         <tr>
                             <td>Webpage</td>
                             <td>
-                                <input type="url" name="webpage" maxlength="100">
+                                <input type="url" name="webpage" maxlength="100" placeholder="http://www.example.com/">
                             </td>
                         </tr>
                         <tr>
                             <td>Location</td>
                             <td>
-                                <input type="text" name="location" maxlength="50">
+                                <input type="text" name="location" maxlength="50" placeholder="office">
                             </td>
                         </tr>
                         <tr>
@@ -107,22 +107,29 @@
                 </form>
             </div>
             <div id="addCategoryView" class="view">
-                <h1>New Category</h1>
-                <form id="addCategoryForm">
-                    <table>
-                        <tr>
-                            <td>Name</td>
-                            <td>
-                                <input type="text" name="name" maxlength="30" required>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><input type="submit" name="Add" value="Submit">
-                            <input type="reset" name="Reset" value="Reset"></td>
-                        </tr>
-                    </table>
-                </form>
+                <div id="addCategoryDiv">
+                    <h1>New Category</h1>
+                    <form id="addCategoryForm">
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input type="text" name="name" maxlength="30" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" name="Add" value="Submit">
+                                <input type="reset" name="Reset" value="Reset"></td>
+                            </tr>
+                        </table>
+                    </form> 
+                </div>
+                <div id="listCategoriesDiv">
+                    <h1>Current Categories</h1>
+                    <ul id="categoryList">
+                    </ul>
+                </div>
             </div>
             <div id="editEventView" class="view">Edit Event
             </div>
