@@ -1,5 +1,8 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calender</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
@@ -18,11 +21,10 @@
         </div>
         <div id="sideNav" class="nav">
             <ul id="sideNavList" class="navList">
-                <li id="addEventNavListItem" class="navListItem">Add Event</li>
-                <li id="addCategoryNavListItem" class="navListItem">Add Category</li>
+                <li id="addEventNavListItem" class="navListItem">New Event</li>
+                <li id="addCategoryNavListItem" class="navListItem">Manage Categories</li>
             </ul>
-        </div>
-        
+        </div>     
         <div id="main">
             <div id="monthView" class="view">Month
             </div>
@@ -30,27 +32,110 @@
             </div>
             <div id="dayView" class="view">Day
             </div>
-            <div id="listView" class="view">List
+            <div id="listView" class="view">
+                <h1>List of Events</h1>
+                <table id="listTable">
+                </table>
             </div>
-            <div id="diaryView" class="view">Diary
+            <div id="diaryView" class="view">
+                <h1>Diary</h1>
             </div>
-            <div id="addEventView" class="view">Add Event
+            <div id="addEventView" class="view">
+                <h1>New Event</h1>
                 <form id="addEventForm">
-                    Title: <input type="text"><br>
-                    Location: <input type="text"><br>
-                    Start: <input type="datetime-local"><br>
-                    End: <input type="datetime-local"><br>
-                    
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td>
+                                <input type="text" name="title" maxlength="50" required="required" placeholder="Event Title">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Start</td>
+                            <td>
+                                <input type="date" name="startDate" required><input type="time" name="startTime" id="aefStartTime" required="required">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>End</td>
+                            <td>
+                                <input type="date" name="endDate" required><input type="time" name="endTime" id="aefEndTime" required="required">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aefAllday">Allday</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="allday" id="aefAllday" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select name="status" size="1">
+                                    <option value="Free">Free</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Tentative">Tentative</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organizer</td>
+                            <td>
+                                <input type="email" name="organizer" maxlength="50" required="required" placeholder="info@example.com">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Webpage</td>
+                            <td>
+                                <input type="url" name="webpage" maxlength="100" placeholder="http://www.example.com/">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>
+                                <input type="text" name="location" maxlength="50" placeholder="office">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" name="Add" value="Submit">
+                            <input type="reset" name="Reset" value="Reset"></td>
+                        </tr>
+                    </table>            
                 </form>
             </div>
-            <div id="addCategoryView" class="view">Add Category
+            <div id="addCategoryView" class="view">
+                <div id="addCategoryDiv">
+                    <h1>New Category</h1>
+                    <form id="addCategoryForm">
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input type="text" name="name" maxlength="30" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" name="Add" value="Submit">
+                                <input type="reset" name="Reset" value="Reset"></td>
+                            </tr>
+                        </table>
+                    </form> 
+                </div>
+                <div id="listCategoriesDiv">
+                    <h1>Current Categories</h1>
+                    <ul id="categoryList">
+                    </ul>
+                </div>
             </div>
             <div id="editEventView" class="view">Edit Event
             </div>
             <div id="editCategoryView" class="view">Edit Category
             </div>
-        </div>
-        
+        </div>     
         <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
