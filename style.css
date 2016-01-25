@@ -28,7 +28,7 @@ body {
 #sideNav {
     position: absolute;
     top: 50px; left: 0px;
-    height: 100%; width: 50px;
+    height: 100%; width: 80px;
 }
 
 .navlist {
@@ -40,6 +40,7 @@ body {
     list-style-position: inside;
     list-style-type: none;
     cursor: pointer;
+    color: #FFFFFF;
 }
 
 #topNavList {
@@ -53,18 +54,34 @@ body {
 
 #sideNavList {
     margin-top: 30px;
+    padding-left: 10px;
 }
 
 #sideNavList li {
+    margin-bottom: 10px;
+}
+
+#listTable {
     
 }
 
-.eventListItem {
+#categoryList {
     
+}
+
+#addCategoryDiv {
+    
+}
+#listCategoriesDiv {
+    
+}
+
+.deleteCategory {
+    cursor: pointer;
 }
 
 #main {
     padding: 10px;
     position: absolute;
-    top: 50px; left: 50px;
+    top: 50px; left: 100px;
 }
