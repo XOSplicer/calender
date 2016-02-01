@@ -100,6 +100,31 @@ function deleteCategory(id) {
     }, sendingError, null);
 }
 
+function actionDeleteEvent(id, callbackSuccess, callbackError, callbackProgress) {
+    var request = new XMLHttpRequest();
+        request.open(C_ACTION_DELETE_EVENT_METHOD, C_URL+"?user="+C_USER+"&format="+C_FORMAT_JSON+"&action="+C_ACTION_DELETE_EVENT+"&id="+id, true);
+        request.addEventListener("load", callbackSuccess, false);
+        request.addEventListener("error", callbackError, false);
+        request.addEventListener("abort", callbackError, false);
+        request.addEventListener("progress", callbackProgress, false);
+    request.send(null);
+}
+
+function deleteEvent(id) {
+    actionDeleteEvent(id, function(e) {
+        var response = JSON.parse(e.target.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.target.responseText);
+            return;
+        } else {
+            alert("Event deleted successfully.");
+            clearView();
+            onClickList();
+        }
+    }, sendingError, null);
+}
+
 function loadingError() {
     alert("Error while loading data! Come back later.");
 }
@@ -175,6 +200,15 @@ function onClickList() {
                     row.appendChild(tdLocation);
                 var tdDelete = document.createElement("td");
                     tdDelete.textContent = "Delete";
+                var hiddenId = document.createElement("span");
+                    hiddenId.textContent = events[i].id;
+                    hiddenId.style.display = "none";
+                    hiddenId.className = "hiddenId";
+                    tdDelete.appendChild(hiddenId);
+                    tdDelete.addEventListener("click", function(e) {
+                        deleteEvent(e.target.getElementsByClassName("hiddenId")[0].textContent);
+                    });
+                    tdDelete.style.cursor="pointer";
                     row.appendChild(tdDelete);
                 var tdEdit = document.createElement("td");
                     tdEdit.textContent = "Edit";
