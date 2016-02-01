@@ -39,7 +39,6 @@ body {
 .navListItem {
     list-style-position: inside;
     list-style-type: none;
-    cursor: pointer;
     color: #FFFFFF;
 }
 
@@ -76,7 +75,7 @@ body {
     
 }
 
-.deleteCategory {
+.clickable {
     cursor: pointer;
 }
 
