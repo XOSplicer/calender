@@ -100,6 +100,44 @@ function deleteCategory(id) {
     }, sendingError, null);
 }
 
+function actionDeleteEvent(id, callbackSuccess, callbackError, callbackProgress) {
+    var request = new XMLHttpRequest();
+        request.open(C_ACTION_DELETE_EVENT_METHOD, C_URL+"?user="+C_USER+"&format="+C_FORMAT_JSON+"&action="+C_ACTION_DELETE_EVENT+"&id="+id, true);
+        request.addEventListener("load", callbackSuccess, false);
+        request.addEventListener("error", callbackError, false);
+        request.addEventListener("abort", callbackError, false);
+        request.addEventListener("progress", callbackProgress, false);
+    request.send(null);
+}
+
+function deleteEvent(id) {
+    actionDeleteEvent(id, function(e) {
+        var response = JSON.parse(e.target.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.target.responseText);
+            return;
+        } else {
+            alert("Event deleted successfully.");
+            clearView();
+            onClickList();
+        }
+    }, sendingError, null);
+}
+
+function actionUpdateEvent(formData, callbackSuccess, callbackError, callbackProgress) {
+    var request = new XMLHttpRequest();
+        request.open(C_ACTION_UPDATE_EVENT_METHOD, C_URL, true);
+        request.addEventListener("load", callbackSuccess, false);
+        request.addEventListener("error", callbackError, false);
+        request.addEventListener("abort", callbackError, false);
+        request.addEventListener("progress", callbackProgress, false);
+        formData.append("user",C_USER);
+        formData.append("action", C_ACTION_UPDATE_EVENT);
+        formData.append("format", C_FORMAT_JSON);
+    request.send(formData); 
+}
+
 function loadingError() {
     alert("Error while loading data! Come back later.");
 }
@@ -175,9 +213,23 @@ function onClickList() {
                     row.appendChild(tdLocation);
                 var tdDelete = document.createElement("td");
                     tdDelete.textContent = "Delete";
+                var hiddenId = document.createElement("span");
+                    hiddenId.textContent = events[i].id;
+                    hiddenId.style.display = "none";
+                    hiddenId.className = "hiddenId";
+                    tdDelete.appendChild(hiddenId);
+                    tdDelete.addEventListener("click", function(e) {
+                        deleteEvent(e.target.getElementsByClassName("hiddenId")[0].textContent);
+                    });
+                    tdDelete.className="clickable";
                     row.appendChild(tdDelete);
                 var tdEdit = document.createElement("td");
                     tdEdit.textContent = "Edit";
+                    tdEdit.appendChild(hiddenId);
+                    tdEdit.addEventListener("click", function(e) {
+                        onClickEditEvent(e.target.getElementsByClassName("hiddenId")[0].textContent);
+                    });
+                    tdEdit.className="clickable";
                     row.appendChild(tdEdit);
                 var tdDetails = document.createElement("td");
                     tdDetails.textContent = "Details";
@@ -221,7 +273,7 @@ function listCategories() {
                 var item = document.createElement("li");
                     item.textContent = categories[i].name;
                 var span = document.createElement("span");
-                    span.className = "deleteCategory";
+                    span.className = "deleteCategory clickable";
                     span.textContent = " (delete)";
                 var hiddenId = document.createElement("span");
                     hiddenId.textContent = categories[i].id;
@@ -263,6 +315,76 @@ function onSubmitAddEvent(e) {
             onClickList();
         }
     }, sendingError, null);
+}
+
+function onClickEditEvent(id) {
+    clearView();
+    document.getElementById("editEventView").style.display="block";
+    //get event infos based on id
+    actionListEvents(function(e){
+        var response = JSON.parse(e.target.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.target.responseText);
+            return;
+        } else {
+            
+            var events = response.events.events;
+            var event;
+            for(var i=0; i<events.length; i++) {
+                if (events[i].id==id) event = events[i];
+            }
+            //fill form
+            var form = document.getElementById("editEventForm");
+                form.elements["id"].value = id;
+                form.elements["title"].value = event.title;
+                var start = event.start;
+                form.elements["startDate"].value = start.substring(0,10);
+                form.elements["startTime"].value = start.substring(11,16);
+                var end = event.end;
+                form.elements["endDate"].value = end.substring(0,10);
+                form.elements["endTime"].value = end.substring(11,16);
+                if(event.allday=="1") form.elements["allday"].checked="checked";
+                    else  form.elements["allday"].checked="unchecked";
+                form.elements["status"].value = event.status;
+                form.elements["organizer"].value = event.organizer;
+                form.elements["webpage"].value = event.webpage;
+                form.elements["location"].value = event.location;
+        }
+    }, loadingError, null);
+}
+
+function onSubmitEditEvent(e) {
+    e.preventDefault();
+    var formData = new FormData(e.target);
+    formData.append("start", e.target.elements["startDate"].value+"T"+e.target.elements["startTime"].value);
+    formData.append("end", e.target.elements["endDate"].value+"T"+e.target.elements["endTime"].value);
+    actionUpdateEvent(formData, function(e){
+        var response = JSON.parse(e.target.responseText); 
+        if("error" in response){
+            serviceError();
+            console.log(e.target.responseText);
+            return;
+        }
+        else {
+            alert("Event updated successfully.");
+            clearView();
+            onClickList();
+        }
+    }, sendingError, null);
+}
+
+function onClickAlldayEdit(e) {
+    if(e.target.checked) {
+        document.getElementById("eefStartTime").value = "00:00";
+        document.getElementById("eefStartTime").readOnly=true;
+        document.getElementById("eefEndTime").value = "23:59";
+        document.getElementById("eefEndTime").readOnly=true;
+    }
+    else {
+        document.getElementById("eefStartTime").readOnly=false;
+        document.getElementById("eefEndTime").readOnly=false;
+    }
 }
 
 function onClickAllday(e) {
@@ -311,4 +433,6 @@ document.getElementById("addEventNavListItem").addEventListener("click",onClickA
 document.getElementById("addCategoryNavListItem").addEventListener("click", onClickAddCategory);
 document.getElementById("addEventForm").addEventListener("submit", onSubmitAddEvent);
 document.getElementById("aefAllday").addEventListener("click", onClickAllday);
+document.getElementById("editEventForm").addEventListener("submit", onSubmitEditEvent);
+document.getElementById("eefAllday").addEventListener("click", onClickAlldayEdit);    
 document.getElementById("addCategoryForm").addEventListener("submit", onSubmitAddCategory);
