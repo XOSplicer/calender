@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calender</title>
+        <link rel="stylesheet" type="text/css" href="style.min.css" />
+    </head>
+    <body>
+        <nav class="nav" tabindex="-1" onclick="this.focus()">
+            <div class="container">
+                <a class="pagename current" href="#">Calender</a>
+                <a id="eventsNav" class="clickable">Events</a>
+                <a id="categoriesNav" class="clickable">Categories</a> 
+            </div>
+        </nav>
+        <button class="btn-close btn btn-sm">×</button>
+        <div class="msg great" id="successMsg">
+            <strong>Ok!</strong>
+            <span>Successfully done whatever.</span>
+        </div>
+        <div class="msg warning" id="serviceErrorMsg">
+            <strong>Oops!</strong>
+            <span>Error in webservice, come back later.</span>
+        </div>
+        <div class="msg warning" id="sendingErrorMsg">
+            <strong>Oops!</strong>
+            <span>Error while sending data, come back later.</span>
+        </div>
+        <div class="msg warning" id="loadingErrorMsg">
+            <strong>Oops!</strong>
+            <span>Error while loading data, come back later.</span>
+        </div>
+        
+        <div id="listView" class="view container">
+            <h1>Your Events</h1>
+            <a class="btn btn-sm btn-b smooth" id="addEventBtn1">New Event</a>
+            <div id="eventList" class="eventlist">
+                <div class="event">
+                    <div class="eventControl">
+                        <a class="btn btn-sm btn-c smooth">X</a><br>
+                        <a class="btn btn-sm btn-b smooth">*</a><br>
+                        <a class="btn btn-sm btn-a smooth">+</a>
+                    </div>
+                    <h3>My title</h3>
+                    <div class="eventGeneral">
+                        <table>
+                            <tr>
+                                <td>From</td>
+                                <td><span>22:00</span>, <span>22 Jan 2016</span></td>
+                            </tr>
+                            <tr>
+                                <td>Until</td>
+                                <td><span>23:00</span>, <span>22 Jan 2016</span></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>(not all day)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="eventDetails">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>Free</td>
+                                </tr>
+                                <tr>
+                                    <td>Organizer</td>
+                                    <td>mail@mail.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Webpage</td>
+                                    <td>google.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Location</td>
+                                    <td>Office</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="eventCategories">
+                            <table>
+                                <tr>
+                                    <td>Categories</td>
+                                    <td>
+                                        <ul>
+                                            <li>cat 1</li>
+                                            <li>cat 2</li>
+                                        </ul>  
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="eventPicture">
+                            picture
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            <a class="btn btn-sm btn-b smooth" id="addEventBtn2">New Event</a>
+        </div>
+        <div id="addEventView" class="view container">
+            <h1>New Event</h1>
+                <form id="addEventForm">
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td>
+                                <input type="text" name="title" maxlength="50" required="required" placeholder="Event Title" class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Start</td>
+                            <td>
+                                <input type="date" name="startDate" required="required"  class="smooth"><input type="time" name="startTime" id="aefStartTime" required="required"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>End</td>
+                            <td>
+                                <input type="date" name="endDate" required="required"  class="smooth"><input type="time" name="endTime" id="aefEndTime" required="required"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aefAllday">Allday</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="allday" id="aefAllday" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select name="status" size="1">
+                                    <option value="Free">Free</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Tentative">Tentative</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organizer</td>
+                            <td>
+                                <input type="email" name="organizer" maxlength="50" required="required" placeholder="info@example.com"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Webpage</td>
+                            <td>
+                                <input type="url" name="webpage" maxlength="100" placeholder="http://www.example.com/"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>
+                                <input type="text" name="location" maxlength="50" placeholder="e.g. office"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" name="submit" value="Create" class="btn btn-sm btn-b smooth">
+                            <input type="reset" name="Reset" value="Reset" class="btn btn-sm btn-a smooth"></td>
+                        </tr>
+                    </table>            
+                </form>
+        </div>
+        <div id="editEventView" class="view container">
+            <h1>Edit Event</h1>
+                <form id="editEventForm">
+                    <table>
+                        <tr>
+                            <td>Title</td>
+                            <td>
+                                <input type="text" name="title" maxlength="50" required="required" placeholder="Event Title"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Start</td>
+                            <td>
+                                <input type="date" name="startDate" required="required" class="smooth"><input type="time" name="startTime" id="eefStartTime" required="required"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>End</td>
+                            <td>
+                                <input type="date" name="endDate" required="required"  class="smooth"><input type="time" name="endTime" id="eefEndTime" required="required"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="eefAllday">Allday</label>
+                            </td>
+                            <td>
+                                <input type="checkbox" name="allday" id="eefAllday" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <td>
+                                <select name="status" size="1">
+                                    <option value="Free">Free</option>
+                                    <option value="Busy">Busy</option>
+                                    <option value="Tentative">Tentative</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Organizer</td>
+                            <td>
+                                <input type="email" name="organizer" maxlength="50" required="required" placeholder="info@example.com"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Webpage</td>
+                            <td>
+                                <input type="url" name="webpage" maxlength="100" placeholder="http://www.example.com/"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Location</td>
+                            <td>
+                                <input type="text" name="location" maxlength="50" placeholder="e.g. office"  class="smooth">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="text" name="id" hidden="hidden"><input type="submit" name="submit" value="Save" class="btn btn-sm btn-b smooth">
+                            <input type="reset" name="reset" value="Reset" class="btn btn-sm btn-a smooth"></td>
+                        </tr>
+                    </table>            
+                </form>
+        </div>
+        <div id="addCategoryView" class="view container">
+            <div class="row">
+                <div id="addCategoryDiv" class=" col c6">
+                    <h1>New Category</h1>
+                    <form id="addCategoryForm">
+                        <table>
+                            <tr>
+                                <td>Name</td>
+                                <td>
+                                    <input type="text" name="name" maxlength="30" required="required"  class="smooth">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><input type="submit" name="Add" value="Submit" class="btn btn-sm btn-b smooth">
+                                <input type="reset" name="Reset" value="Reset" class="btn btn-sm btn-a smooth"></td>
+                            </tr>
+                        </table>
+                    </form> 
+                </div>
+                <div id="listCategoriesDiv" class="c col c6">
+                    <h1>Current Categories</h1>
+                    <ul id="categoryList">
+                    </ul>
+                </div>  
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="script.min.js"></script>
+    </body>
+</html>
