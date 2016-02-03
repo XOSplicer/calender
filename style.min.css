@@ -21,7 +21,7 @@ select {
 }
 
 .container {
-    margin: 0 20px;
+    margin: 0 100px;
     width: auto
 }
 
@@ -234,15 +234,15 @@ input[type=text] {
     margin: -54px 7px;
     display: none
 }
-
+/*
 @media(min-width:1050px) {
     .container {
         margin: auto;
         width: 1000px
     }
 }
-
-@media(max-width:870px) {
+*/
+@media(max-width:1200px) {
     .row .col {
         width: 100%
     }
@@ -336,11 +336,10 @@ body {
 .event {
     border-radius: 4px;
     border: 0;
-    margin: 10px 0;
+    margin: 10px 0px;
     padding: 15px 30px;
-    width: 50%;
+    width: 75%;
     display: inline-block;
-    margin-right: 50%;
 }
 
 .event h3 {
@@ -373,17 +372,12 @@ body {
     padding-right: 5px;
 }
 
-.eventCategories tr>:first-child {
-    vertical-align: top;
-    width: 80px;
-    text-align: right;
-    padding-right: 5px;
-}
-
-.eventCategories ul {
-    padding-left: 20px;
-    padding-bottom: 5px;
-    margin: 0px;
+.eventCategories span {
+    border-radius: 4px;
+    border: 0;
+    background-color: #0ae;
+    padding: 3px;
+    color: #fff;
 }
 
 .eventControl {
@@ -405,67 +399,11 @@ body {
     text-align: center;
 }
 
-
-
-/*
-
-// old css 
-.nav {
-    background-color: #FF8D10;
+#month {
+    margin: 10px 0px;
+    padding: 20px;
+    width: 100%;
+    height: 500px;
+    border: 0;
+    border-radius: 4px;
 }
-
-#cornerNav {
-    background-color: #B3610B;
-    position: absolute;
-    top: 0px; left: 0px;
-    height: 50px; width: 150px;
-    color: #FFFFFF;
-    font-size: 30px;
-    font-variant: small-caps;
-    text-align: center;
-    line-height: 50px;
-}
-
-#topNav {
-    position: absolute;
-    top: 0px; left: 150px;
-    height: 50px; width: 100%;
-}
-
-#sideNav {
-    position: absolute;
-    top: 50px; left: 0px;
-    height: 100%; width: 80px;
-}
-
-.navlist {
-    padding-left: 10px;
-    color: #FFFFFF;
-}
-
-.navListItem {
-    list-style-position: inside;
-    list-style-type: none;
-    color: #FFFFFF;
-}
-
-#topNavList {
-    margin-left: 20px;
-}
-
-#topNavList li {
-    display: inline;
-    margin: 10px;
-}
-
-#sideNavList {
-    margin-top: 30px;
-    padding-left: 10px;
-}
-
-#sideNavList li {
-    margin-bottom: 10px;
-}
-
-*/
-
