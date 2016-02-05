@@ -379,6 +379,7 @@ body {
 
 .eventPicture .btn {
     padding: 5px;
+    margin-left: 5px;
 }
 
 .eventDetails tr>:first-child {
@@ -413,6 +414,9 @@ body {
     height: 10px;
     text-align: center;
 }
+
+
+
 
 #month {
     margin: 10px 0px;
