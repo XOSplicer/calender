@@ -1,4 +1,5 @@
 /* from min css framework (edited)*/
+/* see mincss.com for reference*/
 /* Copyright 2014 Owen Versteeg; MIT licensed */
 
 body,
@@ -419,6 +420,18 @@ body {
     width: 15px;
     height: 15px;
     text-align: center;
+}
+
+#categoryList .btn {
+    border-radius: 4px;
+    border: 0;
+    margin-top: 3px;
+    margin-left: 3px;
+    padding: 3px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    display: inline-block;
 }
 
 #editCategoriesFormCategoryList input {
