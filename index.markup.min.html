@@ -120,7 +120,7 @@
                             <td></td>
                             <td>
                                 <input type="submit" name="submit" value="Create" class="btn btn-sm btn-b smooth">
-                            <input type="reset" name="Reset" value="Reset" class="btn btn-sm btn-a smooth">
+                            <input type="reset" name="reset" value="Reset" class="btn btn-sm btn-a smooth">
                                 <div class="btn btn-sm btn-c smooth" id="btnCancelAdd">Cancel</div>
                             </td>
                         </tr>
@@ -223,7 +223,17 @@
                 </div>  
             </div>
         </div>
-        
+        <div id="editCategoriesView" class="view container">
+            <h1>Edit Categories</h1>
+            <h3>Select the Categories for: <span id="editCategoriesEventTitle"></span></h3>
+            <form id="editCategoriesForm">
+                <div id="editCategoriesFormCategoryList"></div>
+                <input type="text" name="id" hidden="hidden" style="display:none;">
+                <input type="submit" name="submit" value="Save" class="btn btn-sm btn-b smooth">
+                <input type="reset" name="reset" value="Reset" class="btn btn-sm btn-a smooth">
+                <div class="btn btn-sm btn-c smooth" id="btnCancelEditCategories">Cancel</div>
+            </form>
+        </div>
         <script type="text/javascript" src="script.min.js"></script>
     </body>
 </html>
