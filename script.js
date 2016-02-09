@@ -705,6 +705,7 @@ function onSubmitEditCategories(e) {
         } else {        removeCategoryFromEvent(document.getElementById("editCategoriesForm").elements["id"].value,checkList[i].attributes["name"].value);
         }
     }
+    succsessMessage("Categories edited.");
     clearView();
     onClickList();
 }

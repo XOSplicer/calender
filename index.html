@@ -63,19 +63,19 @@
                 <form id="addEventForm">
                     <table>
                         <tr>
-                            <td>Title</td>
+                            <td>Title<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="text" name="title" maxlength="50" required="required" placeholder="Event Title" class="smooth">
                             </td>
                         </tr>
                         <tr>
-                            <td>Start</td>
+                            <td>Start<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="date" name="startDate" required="required"  class="smooth"><input type="time" name="startTime" id="aefStartTime" required="required"  class="smooth">
                             </td>
                         </tr>
                         <tr>
-                            <td>End</td>
+                            <td>End<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="date" name="endDate" required="required"  class="smooth"><input type="time" name="endTime" id="aefEndTime" required="required"  class="smooth">
                             </td>
@@ -89,7 +89,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Status</td>
+                            <td>Status<span class="required" title="Required">*</span></td>
                             <td>
                                 <select name="status" size="1">
                                     <option value="Free">Free</option>
@@ -99,7 +99,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Organizer</td>
+                            <td>Organizer<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="email" name="organizer" maxlength="50" required="required" placeholder="info@example.com"  class="smooth">
                             </td>
@@ -120,7 +120,7 @@
                             <td></td>
                             <td>
                                 <input type="submit" name="submit" value="Create" class="btn btn-sm btn-b smooth">
-                            <input type="reset" name="reset" value="Reset" class="btn btn-sm btn-a smooth">
+                            <input type="reset" name="resetBtn" value="Reset" class="btn btn-sm btn-a smooth">
                                 <div class="btn btn-sm btn-c smooth" id="btnCancelAdd">Cancel</div>
                             </td>
                         </tr>
@@ -132,19 +132,19 @@
                 <form id="editEventForm">
                     <table>
                         <tr>
-                            <td>Title</td>
+                            <td>Title<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="text" name="title" maxlength="50" required="required" placeholder="Event Title"  class="smooth">
                             </td>
                         </tr>
                         <tr>
-                            <td>Start</td>
+                            <td>Start<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="date" name="startDate" required="required" class="smooth"><input type="time" name="startTime" id="eefStartTime" required="required"  class="smooth">
                             </td>
                         </tr>
                         <tr>
-                            <td>End</td>
+                            <td>End<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="date" name="endDate" required="required"  class="smooth"><input type="time" name="endTime" id="eefEndTime" required="required"  class="smooth">
                             </td>
@@ -158,7 +158,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Status</td>
+                            <td>Status<span class="required" title="Required">*</span></td>
                             <td>
                                 <select name="status" size="1">
                                     <option value="Free">Free</option>
@@ -168,7 +168,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Organizer</td>
+                            <td>Organizer<span class="required" title="Required">*</span></td>
                             <td>
                                 <input type="email" name="organizer" maxlength="50" required="required" placeholder="info@example.com"  class="smooth">
                             </td>
@@ -189,7 +189,7 @@
                             <td></td>
                             <td>
                                 <input type="text" name="id" hidden="hidden"><input type="submit" name="submit" value="Save" class="btn btn-sm btn-b smooth">
-                            <input type="reset" name="reset" value="Reset" class="btn btn-sm btn-a smooth">
+                            <input type="reset" name="resetBtn" value="Reset" class="btn btn-sm btn-a smooth">
                                 <div class="btn btn-sm btn-c smooth" id="btnCancelEdit">Cancel</div>
                             </td>
                         </tr>
@@ -203,7 +203,7 @@
                     <form id="addCategoryForm">
                         <table>
                             <tr>
-                                <td>Name</td>
+                                <td>Name<span class="required" title="Required">*</span></td>
                                 <td>
                                     <input type="text" name="name" maxlength="30" required="required"  class="smooth">
                                 </td>
@@ -211,7 +211,7 @@
                             <tr>
                                 <td></td>
                                 <td><input type="submit" name="Add" value="Submit" class="btn btn-sm btn-b smooth">
-                                <input type="reset" name="Reset" value="Reset" class="btn btn-sm btn-a smooth"></td>
+                                <input type="reset" name="resetBtn" value="Reset" class="btn btn-sm btn-a smooth"></td>
                             </tr>
                         </table>
                     </form> 

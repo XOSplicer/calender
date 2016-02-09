@@ -438,6 +438,17 @@ body {
     display: inline;
 }
 
+.required {
+    margin-left: 3px;
+    color: #d33;
+}
+
+#addEventForm tr td:first-child,
+#editEventForm tr td:first-child{
+    text-align: right;
+    padding-right: 5px;
+}
+
 
 
 #month {
