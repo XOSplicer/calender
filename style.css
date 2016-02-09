@@ -1,4 +1,5 @@
-/* from min css framework (edited)*/
+/* taken from the mincss framework */
+/* some parts are edited */
 /* see mincss.com for reference*/
 /* Copyright 2014 Owen Versteeg; MIT licensed */
 
@@ -305,7 +306,7 @@ input[type=text] {
     border-left: 5px solid #59d
 }
 
-/* my extended markup */
+/* my own extended markup */
 
 body {
     background-color: #FFFFFF;
