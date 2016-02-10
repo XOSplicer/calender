@@ -244,5 +244,15 @@
             </form>
         </div>
         <script type="text/javascript" src="script.js"></script>
+        <!-- Polyfills -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="js-webshim/minified/polyfiller.js"></script> 
+        <script> 
+            // load and implement all unsupported features 
+            webshims.polyfill();
+            // or only load a specific feature
+            //webshims.polyfill('forms es5');
+        </script>
+        
     </body>
 </html>
