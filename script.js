@@ -362,7 +362,6 @@ function toggleEventDetails(event) {
 function createHiddenId(id) {
     var hiddenId = document.createElement("span");
         hiddenId.textContent = id;
-        hiddenId.style.display = "none";
         hiddenId.className = "hiddenId";
     return hiddenId;
 }
@@ -538,9 +537,24 @@ function onClickList(e) {
             console.log(e.target.responseText);
             return;
         } else {
-            //append all the all the events to the list
             var events = response.events.events;
+            //Sort the events based on dates according to the hiddenSort value (1 or -1)
+            var direction = document.getElementById("hiddenSort").textContent;
+            events.sort(function(a,b) {
+                var sa = new Date(a.start);
+                var sb = new Date(b.start);
+                if (sa > sb) return direction * 1;
+                else return direction * -1;
+            });
+            //if filter is set filter by the title
+            var filterStr = document.getElementById("filterForm").elements["filter"].value;
+            if(filterStr != "") {
+                events = events.filter(function(e) {
+                    return e.title.search(filterStr) != -1;
+                });
+            }
             document.getElementById("eventList").innerHTML="";
+            //append  all the events to the list
             for(var i=0; i < events.length; i++) {
                 appendEvent(events[i]);
             }
@@ -849,6 +863,26 @@ function onSubmitEditCategories(e) {
     onClickList();
 }
 
+function onClickSort(e) {
+    var hiddenSort = document.getElementById("hiddenSort");
+    if(hiddenSort.textContent=="1") {
+        hiddenSort.textContent = "-1";
+        e.target.textContent = "Sorted downwards";
+    }
+    else {
+        hiddenSort.textContent = "1";
+        e.target.textContent = "Sorted upwards";
+    }
+    clearView();
+    onClickList();
+}
+
+function onSubmitFilter(e) {
+    e.preventDefault();
+    clearView();
+    onClickList();
+}
+
 //Add Event Handler
 document.getElementById("eventsNav").addEventListener("click",onClickList);
 document.getElementById("btnCancelEdit").addEventListener("click",onClickList);
@@ -865,6 +899,8 @@ document.getElementById("eefAllday").addEventListener("click", onClickAlldayEdit
 document.getElementById("addCategoryForm").addEventListener("submit", onSubmitAddCategory);
 document.getElementById("editCategoriesForm").addEventListener("submit", onSubmitEditCategories);
 document.getElementsByClassName("pagename current")[0].addEventListener("click", onClickLogo);
+document.getElementById("sortingBtn").addEventListener("click", onClickSort);
+document.getElementById("filterForm").addEventListener("submit", onSubmitFilter);
 
 //Script -  will be executed on load
 

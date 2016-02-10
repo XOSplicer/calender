@@ -450,7 +450,33 @@ body {
     padding-right: 5px;
 }
 
+#filterForm {
+    display: inline-block;
+}
 
+#filterForm input {
+    display: inline;
+}
+
+#filterForm input[type=text] {
+    width: 150px;
+}
+
+#addEventBtn1 {
+    margin-right: 20px;
+}
+
+#sortingBtn {
+    margin-right: 10px;
+}
+
+.hiddenId {
+    display: none;
+}
+
+#hiddenSort {
+    display: none;
+}
 
 #month {
     margin: 10px 0px;

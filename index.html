@@ -36,7 +36,16 @@
             <div class="row">
                 <div class="col c5">
                     <h1>Your Events</h1>
-                    <a class="btn btn-sm btn-b smooth" id="addEventBtn1" title="Create a new Event">New Event</a>
+                    <div id="listControl">
+                            <a class="btn btn-sm btn-b smooth" id="addEventBtn1" title="Create a new Event">New Event</a>
+                            <a class="btn btn-sm btn-a smooth" id="sortingBtn" title="Toggle Sorting of Events by Date">Sorted upwards</a>
+                        <span id="hiddenSort">1</span>
+                        <form id="filterForm">
+                            <input type="text" name="filter" maxlength="50" placeholder="Filter by Title" class="smooth">
+                            <input type="submit" name="submit" value="Filter" class="btn btn-sm btn-a smooth">
+                        </form>
+                    </div>
+
                     <div id="eventList" class="eventlist"></div>
                     <a class="btn btn-sm btn-b smooth" id="addEventBtn2" title="Create a new Event">New Event</a>
                 </div>
