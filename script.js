@@ -120,6 +120,7 @@ function actionDeleteEvent(id, callbackSuccess, callbackError, callbackProgress)
         request.addEventListener("progress", callbackProgress, false);
     request.send(null);
 }
+
 //wrapper for deleting an event
 function deleteEvent(id) {
     //Make ajax request
@@ -550,7 +551,7 @@ function onClickList(e) {
             var filterStr = document.getElementById("filterForm").elements["filter"].value;
             if(filterStr != "") {
                 events = events.filter(function(e) {
-                    return e.title.search(filterStr) != -1;
+                    return e.title.toLocaleLowerCase().search(filterStr.toLocaleLowerCase()) != -1;
                 });
             }
             document.getElementById("eventList").innerHTML="";

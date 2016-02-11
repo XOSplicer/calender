@@ -471,11 +471,11 @@ body {
 }
 
 .hiddenId {
-    display: none;
+    display: none !important; 
 }
 
 #hiddenSort {
-    display: none;
+    display: none !important;
 }
 
 #month {
