@@ -28,6 +28,79 @@ var C_ACTION_REMOVE_CATEGORY_FROM_EVENT_METHOD = "GET";
 var C_ACTION_ADD_CATEGORY_TO_EVENT = "put-category";
 var C_ACTION_ADD_CATEGORY_TO_EVENT_METHOD = "GET";
 
+//Functions for Month View
+
+// these are labels for the days of the week
+cal_days_labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+// these are human-readable month name labels, in order
+cal_months_labels = ['January', 'February', 'March', 'April',
+                     'May', 'June', 'July', 'August', 'September',
+                     'October', 'November', 'December'];
+// these are the days of the week for each month, in order
+cal_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+// this is the current date
+cal_current_date = new Date(); 
+//Calender constructor
+function Calendar(month, year) {
+  this.month = (isNaN(month) || month == null) ? cal_current_date.getMonth() : month;
+  this.year  = (isNaN(year) || year == null) ? cal_current_date.getFullYear() : year;
+  this.html = '';
+}
+//HTML Generation
+Calendar.prototype.generateHTML = function(){
+    var firstDay = new Date(this.year, this.month, 1);
+    var startingDay = firstDay.getDay();
+    var monthLength = cal_days_in_month[this.month];
+    if (this.month == 1) { // February only! in leap year
+        if ((this.year % 4 == 0 && this.year % 100 != 0) || this.year % 400 == 0){
+        monthLength = 29;
+        }
+    }
+    //HTML Table Header
+    var monthName = cal_months_labels[this.month];
+    var html = '<table class="calendar-table">';
+    html += '<tr><th colspan="7">';
+    html +=  monthName + "&nbsp;" + this.year;
+    html += '</th></tr>';
+    html += '<tr class="calendar-header">';
+    for (var i = 0; i <= 6; i++ ){
+        html += '<td class="calendar-header-day">';
+        html += cal_days_labels[i];
+        html += '</td>';
+    }
+    html += '</tr><tr>';
+    // fill in the days
+    var day = 1;
+    // this loop is for is weeks (rows)
+    for (var i = 0; i < 9; i++) {
+        // this loop is for weekdays (cells)
+        for (var j = 0; j <= 6; j++) { 
+            html += '<td class="calendar-day"';
+            if (day <= monthLength && (i > 0 || j >= startingDay)) {
+                var id = 'id="cal_day_'+this.year+'_'+this.month+'_'+day.toString()+'"';
+                html += id+'>';
+                html += day;
+                html += '<div class="calendar-entry"></div>'
+                day++;
+            }
+            html += '</td>';
+        }
+        // stop making rows if we've run out of days
+        if (day > monthLength) {
+            break;
+        } else {
+            html += '</tr><tr>';
+        }
+    }
+    html += '</tr></table>';
+
+    this.html = html;
+}
+
+Calendar.prototype.getHTML = function() {
+  return this.html;
+}
+
 //Functions for webservice
 
 //Ajax request to list the events
@@ -529,6 +602,10 @@ function onClickList(e) {
     //show the event list view
     clearView();
     document.getElementById("listView").style.display="block";
+    //set Month view
+    var cal = new Calendar();
+        cal.generateHTML();
+        document.getElementById("month").innerHTML = cal.getHTML();
     //ajax request to list the events
     actionListEvents(function(e){
         var response = JSON.parse(e.target.responseText); 
@@ -558,6 +635,17 @@ function onClickList(e) {
             //append  all the events to the list
             for(var i=0; i < events.length; i++) {
                 appendEvent(events[i]);
+                //set Month Date BG color
+                var sa = new Date(events[i].start);
+                var ea = new Date(events[i].end);
+                while(sa<=ea) {
+                     if(sa.getFullYear()==cal.year && sa.getMonth()==cal.month && sa.getDate()<=cal_days_in_month[cal.month]) {
+                   //console.log('cal_day_'+sa.getFullYear()+'_'+sa.getMonth()+'_'+sa.getDate());
+                    document.getElementById('cal_day_'+sa.getFullYear()+'_'+sa.getMonth()+'_'+sa.getDate()).style.backgroundColor = "#0ae";
+                    document.getElementById('cal_day_'+sa.getFullYear()+'_'+sa.getMonth()+'_'+sa.getDate()).getElementsByClassName("calendar-entry")[0].innerHTML += events[i].title+"<br>";      
+                }
+                    sa.setDate(sa.getDate()+1);
+                }  
             }
         }
     }, loadingError, null);    
