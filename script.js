@@ -60,7 +60,9 @@ Calendar.prototype.generateHTML = function(){
     var monthName = cal_months_labels[this.month];
     var html = '<table class="calendar-table">';
     html += '<tr><th colspan="7">';
+    html += '<a class="btn btn-sm btn-a smooth" id="btnMonthPrev"><</a>';
     html +=  monthName + "&nbsp;" + this.year;
+    html += '<a class="btn btn-sm btn-a smooth" id="btnMonthNext">></a>';
     html += '</th></tr>';
     html += '<tr class="calendar-header">';
     for (var i = 0; i <= 6; i++ ){
@@ -99,6 +101,23 @@ Calendar.prototype.generateHTML = function(){
 
 Calendar.prototype.getHTML = function() {
   return this.html;
+}
+
+Calendar.prototype.build = function() {
+    this.generateHTML();
+    document.getElementById("month").innerHTML = this.getHTML();
+    document.getElementById("btnMonthPrev").addEventListener("click", function(e) {
+        var date = new Date(document.getElementById("monthView").getElementsByClassName("hiddenId")[0].textContent);
+        var prev = new Date(date.setMonth(date.getMonth() - 1));
+        document.getElementById("monthView").getElementsByClassName("hiddenId")[0].textContent=prev.toISOString();
+        onClickList();
+    });
+    document.getElementById("btnMonthNext").addEventListener("click", function(e) {
+        var date = new Date(document.getElementById("monthView").getElementsByClassName("hiddenId")[0].textContent);
+        var next = new Date(date.setMonth(date.getMonth() + 1));
+        document.getElementById("monthView").getElementsByClassName("hiddenId")[0].textContent=next.toISOString();
+        onClickList();
+    });
 }
 
 //Functions for webservice
@@ -603,9 +622,9 @@ function onClickList(e) {
     clearView();
     document.getElementById("listView").style.display="block";
     //set Month view
-    var cal = new Calendar();
-        cal.generateHTML();
-        document.getElementById("month").innerHTML = cal.getHTML();
+    var date = new Date(document.getElementById("monthView").getElementsByClassName("hiddenId")[0].textContent);
+    var cal = new Calendar(date.getMonth(), date.getFullYear());
+        cal.build();
     //ajax request to list the events
     actionListEvents(function(e){
         var response = JSON.parse(e.target.responseText); 
@@ -992,6 +1011,8 @@ document.getElementById("sortingBtn").addEventListener("click", onClickSort);
 document.getElementById("filterForm").addEventListener("submit", onSubmitFilter);
 
 //Script -  will be executed on load
+
+document.getElementById("monthView").getElementsByClassName("hiddenId")[0].textContent = cal_current_date.toISOString();
 
 clearView();
 clearMsg();
