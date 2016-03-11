@@ -103,6 +103,7 @@ Calendar.prototype.getHTML = function() {
   return this.html;
 }
 
+//Called to finally build the Calender into the MonthView
 Calendar.prototype.build = function() {
     this.generateHTML();
     document.getElementById("month").innerHTML = this.getHTML();
@@ -795,8 +796,11 @@ function onClickEditEvent(id) {
                 var end = event.end;
                 form.elements["endDate"].value = end.substring(0,10);
                 form.elements["endTime"].value = end.substring(11,16);
-                if(event.allday=="1") form.elements["allday"].checked="checked";
-                    else  form.elements["allday"].checked="unchecked";
+                if(event.allday==1){
+                    form.elements["allday"].checked=true;
+                }else{
+                    form.elements["allday"].checked=false;
+                }
                 form.elements["status"].value = event.status;
                 form.elements["organizer"].value = event.organizer;
                 form.elements["webpage"].value = event.webpage;
