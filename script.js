@@ -895,7 +895,7 @@ function onSubmitAddCategory(e) {
 
 //By clicking on "Calender" display a message and go to the event list view
 function onClickLogo(e) {
-    succsessMessage("Yes, it's a calender, kinda.");
+    succsessMessage("Yes, it's a calendar, kinda.");
     onClickList();
 }
 
