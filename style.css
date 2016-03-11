@@ -340,7 +340,7 @@ body {
     border: 0;
     margin: 10px 0px;
     padding: 15px 30px;
-    width: 75%;
+    width: 80%;
     display: inline-block;
 }
 
@@ -421,6 +421,13 @@ body {
     width: 15px;
     height: 15px;
     text-align: center;
+}
+
+#eventList {
+    height: 700px;
+    overflow: auto;
+    margin-right: 50px;
+    
 }
 
 #categoryList .btn {
