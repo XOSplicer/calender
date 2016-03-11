@@ -60,9 +60,9 @@ Calendar.prototype.generateHTML = function(){
     var monthName = cal_months_labels[this.month];
     var html = '<table class="calendar-table">';
     html += '<tr><th colspan="7">';
-    html += '<a class="btn btn-sm btn-a smooth" id="btnMonthPrev" title="Previous month"><</a>';
+    html += '<a class="btn btn-sm btn-a smooth" id="btnMonthPrev" title="Previous month">&lt;</a>';
     html +=  monthName + "&nbsp;" + this.year;
-    html += '<a class="btn btn-sm btn-a smooth" id="btnMonthNext" title="Next month">></a>';
+    html += '<a class="btn btn-sm btn-a smooth" id="btnMonthNext" title="Next month">&gt;</a>';
     html += '</th></tr>';
     html += '<tr class="calendar-header">';
     for (var i = 0; i <= 6; i++ ){
@@ -84,6 +84,9 @@ Calendar.prototype.generateHTML = function(){
                 html += day;
                 html += '<div class="calendar-entry"></div>'
                 day++;
+            }
+            else {
+                html+='>';
             }
             html += '</td>';
         }
