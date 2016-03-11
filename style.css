@@ -517,6 +517,7 @@ body {
     overflow: auto;
     font-weight: normal;
     font-size: .7em;
+    max-height: 100px;
 }
 
 #month td {
